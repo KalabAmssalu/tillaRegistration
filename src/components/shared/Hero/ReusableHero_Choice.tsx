@@ -18,6 +18,7 @@ interface ReusableHeroProps {
 	footerText: string;
 	footerLink: { label: string; href: string };
 	className?: string;
+	additionalComponent?: React.ReactNode;
 }
 
 const ReusableHero: React.FC<ReusableHeroProps> = ({
@@ -27,10 +28,12 @@ const ReusableHero: React.FC<ReusableHeroProps> = ({
 	footerText,
 	footerLink,
 	className,
+	additionalComponent,
 }) => {
 	return (
 		<HeroHighlight className={`flex items-center h-screen ${className || ""}`}>
 			<div className="flex flex-col items-center justify-center min-h-screen p-8 space-y-8">
+				{additionalComponent}
 				<h2 className="text-4xl font-extrabold text-primary text-white text-center">
 					{title}
 				</h2>

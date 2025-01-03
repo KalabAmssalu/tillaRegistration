@@ -47,6 +47,7 @@ import zewdituHospital from "../../public/images/zewditu.jpeg";
 
 export const DOCS = Object.freeze({
 	OrgRegistration: "../../public/docs/company.xlsx",
+	providerNetwork: "../../public/docs/Tilla_Health_Provider_Guide.pdf",
 });
 
 export const IMAGES = Object.freeze({

@@ -17,3 +17,12 @@ export const formatToMMDDYYYY = (date: Date): string => {
 
 	return `${month}-${day}-${year}`;
 };
+
+export const getFormattedDate = () => {
+	const date = new Date();
+	return date.toLocaleDateString("en-US", {
+		year: "numeric",
+		month: "short",
+		day: "numeric",
+	});
+};
