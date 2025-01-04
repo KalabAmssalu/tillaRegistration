@@ -1,13 +1,15 @@
 import { type PricingTier } from "@/types/pricing/PricingType";
 
+const yearly = (value: number) => value * 12 * 0.9;
+
 export const pricingTiers: PricingTier[] = [
 	{
 		title: "Basic Plan",
 		with_deductible: {
-			deductible_amount: 4000,
-			max_out_of_pocket: 12000,
-			price: { monthly: 95, yearly: 500 },
-			coInsurance: 35,
+			deductible_amount: 2800,
+			max_out_of_pocket: 10000,
+			price: { monthly: 70, yearly: yearly(70) },
+			coInsurance: 30,
 			features: [
 				{
 					name: "Routine check-ups, vaccinations, preventive care",
@@ -24,8 +26,8 @@ export const pricingTiers: PricingTier[] = [
 			],
 		},
 		non_deductible: {
-			max_out_of_pocket: 10000,
-			price: { monthly: 110, yearly: 650 },
+			max_out_of_pocket: 15000,
+			price: { monthly: 105, yearly: yearly(105) },
 			coInsurance: 35,
 			features: [
 				{
@@ -46,10 +48,10 @@ export const pricingTiers: PricingTier[] = [
 	{
 		title: "Standard Plan",
 		with_deductible: {
-			deductible_amount: 3500,
-			max_out_of_pocket: 9500,
-			price: { monthly: 125, yearly: 920 },
-			coInsurance: 35,
+			deductible_amount: 2500,
+			max_out_of_pocket: 8000,
+			price: { monthly: 90, yearly: yearly(90) },
+			coInsurance: 25,
 			features: [
 				{
 					name: "All Basic services + access to general practitioners",
@@ -72,8 +74,8 @@ export const pricingTiers: PricingTier[] = [
 			],
 		},
 		non_deductible: {
-			max_out_of_pocket: 7500,
-			price: { monthly: 140, yearly: 1080 },
+			max_out_of_pocket: 10000,
+			price: { monthly: 125, yearly: yearly(125) },
 			coInsurance: 30,
 			features: [
 				{
@@ -100,10 +102,10 @@ export const pricingTiers: PricingTier[] = [
 	{
 		title: "Comprehensive Plan",
 		with_deductible: {
-			deductible_amount: 3000,
-			max_out_of_pocket: 6500,
-			price: { monthly: 155, yearly: 1500 },
-			coInsurance: 25,
+			deductible_amount: 2200,
+			max_out_of_pocket: 5500,
+			price: { monthly: 110, yearly: yearly(110) },
+			coInsurance: 20,
 			features: [
 				{
 					name: "All Standard services + comprehensive diagnostics",
@@ -141,8 +143,8 @@ export const pricingTiers: PricingTier[] = [
 			],
 		},
 		non_deductible: {
-			max_out_of_pocket: 5500,
-			price: { monthly: 180, yearly: 1720 },
+			max_out_of_pocket: 7500,
+			price: { monthly: 145, yearly: yearly(145) },
 			coInsurance: 25,
 			features: [
 				{
@@ -184,10 +186,10 @@ export const pricingTiers: PricingTier[] = [
 	{
 		title: "Family Plan",
 		with_deductible: {
-			deductible_amount: 2750,
-			max_out_of_pocket: 5500,
-			price: { monthly: 210, yearly: 1500 },
-			coInsurance: 20,
+			deductible_amount: 1900,
+			max_out_of_pocket: 4500,
+			price: { monthly: 130, yearly: yearly(130) },
+			coInsurance: 15,
 			features: [
 				{
 					name: "All Comprehensive services + Family Plan diagnostics",
@@ -269,8 +271,8 @@ export const pricingTiers: PricingTier[] = [
 			],
 		},
 		non_deductible: {
-			max_out_of_pocket: 4500,
-			price: { monthly: 240, yearly: 1720 },
+			max_out_of_pocket: 5500,
+			price: { monthly: 165, yearly: yearly(165) },
 			coInsurance: 20,
 			features: [
 				{

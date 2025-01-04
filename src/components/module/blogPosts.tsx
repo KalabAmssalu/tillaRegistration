@@ -882,6 +882,130 @@ export const blogPosts: Record<string, BlogPostProps> = {
 			buttonLink: "mailto:providerrelations@tillahealth.com",
 		},
 	},
+
+	"provider-network": {
+		title: "Government Collaboration for Healthcare Provider Training",
+		headerImage: "training" as keyof typeof IMAGES,
+		introduction:
+			"At Tilla Health, we believe in the power of collaboration to transform healthcare delivery in Ethiopia. Our commitment is to empower healthcare providers with the tools and knowledge they need to navigate health insurance systems efficiently and deliver quality care.",
+		keyfeaturetitle: "Why Join Tilla Health?",
+		features: [
+			{
+				icon: null,
+				title: "Comprehensive Provider Portal",
+				features: [
+					"Manage your practice, submit claims, and access valuable resources with ease.",
+				],
+			},
+			{
+				icon: null,
+				title: "Educational Opportunities",
+				features: [
+					"Participate in training programs that cover health insurance systems, claims processing, and optimizing patient care.",
+				],
+			},
+			{
+				icon: null,
+				title: "Government Collaboration for Healthcare Provider Training",
+				features: [
+					"Understanding health insurance and its benefits.",
+					"Claims processing and reimbursement.",
+					"Utilizing the Tilla Health Provider Portal effectively.",
+					"Interested in participating? [Learn More →]",
+				],
+			},
+			{
+				icon: null,
+				title: "Education for Individual Providers and Healthcare Facilities",
+				features: [
+					"Gain insight into the benefits of health insurance for your practice.",
+					"Training on using the Provider Portal for seamless patient and claims management.",
+					"Ready to start? [Learn More →]",
+				],
+			},
+		],
+		whyChooseTitle: "Join Us in Improving Healthcare Accessibility",
+		whyChoosePoints: [
+			"Access a user-friendly portal.",
+			"Benefit from ongoing educational resources.",
+			"Join a supportive network dedicated to enhancing healthcare quality in Ethiopia.",
+		],
+		howToGetStarted: {
+			title: "To Join the Provider Network:",
+			steps: [
+				"Click on 'Register Now'.",
+				"Complete the registration form with your practice details.",
+				"Receive confirmation and start accessing exclusive resources.",
+			],
+		},
+		promiseSection: {
+			title: "Unlock Exclusive Tools and Resources",
+			content:
+				"By registering, you unlock exclusive tools and resources to grow your practice and improve patient care.",
+		},
+		callToAction: {
+			title: "Register Now to Become a Tilla Health Provider!",
+			content: "Join us in transforming healthcare delivery in Ethiopia.",
+			buttonText: "Register",
+			buttonLink: "",
+		},
+	},
+	"provider-training": {
+		title: "Education for Individual Providers and Healthcare Facilities",
+		headerImage: "training2",
+		introduction:
+			"Tilla Health is leading the transformation of healthcare in Ethiopia by equipping providers with the skills and knowledge to effectively integrate health insurance into their practices. Join us in elevating your healthcare practice!",
+		keyfeaturetitle: "Why Choose Tilla Health?",
+		features: [
+			{
+				icon: null,
+				title: "Comprehensive Health Insurance Training",
+				features: [
+					"Gain a thorough understanding of health insurance fundamentals, including its structure, purpose, and benefits for both patients and providers.",
+				],
+			},
+			{
+				icon: null,
+				title: "Efficient Claims Management",
+				features: [
+					"Step-by-step guidance on claims processing, tracking, and reimbursement systems.",
+				],
+			},
+			{
+				icon: null,
+				title: "Hands-On Provider Portal Training",
+				features: [
+					"Learn to use the Tilla Health Provider Portal for registration, patient data management, and seamless claims submission.",
+				],
+			},
+		],
+		whyChooseTitle: "Benefits of Participation",
+		whyChoosePoints: [
+			"Boost efficiency by understanding health insurance workflows.",
+			"Enhance collaboration with government and private health systems.",
+			"Access ongoing support and resources from Tilla Health.",
+		],
+		howToGetStarted: {
+			title: "How to Sign Up:",
+			steps: [
+				"Click on 'Register Now'.",
+				"Fill out the simple registration form with your details.",
+				"Receive confirmation and start participating in our programs.",
+			],
+		},
+		promiseSection: {
+			title: "Unlock Exclusive Training and Resources",
+			content:
+				"By joining our programs, you'll access exclusive tools and educational opportunities to improve your practice and patient care.",
+		},
+		callToAction: {
+			title: "Ready to Transform Your Practice?",
+			content:
+				"Fill out our simple registration form today to participate in Tilla Health's training programs.",
+			buttonText: "Register Now",
+			buttonLink: "",
+		},
+	},
 	"broker-portal": {
 		title: "Features of the Broker Portal",
 		headerImage: "broker4" as keyof typeof IMAGES, // Adjust image as necessary

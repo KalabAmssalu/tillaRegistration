@@ -1,6 +1,6 @@
 "use client";
 
-import { useState } from "react";
+import { useEffect, useState } from "react";
 
 import { Check, X } from "lucide-react";
 
@@ -8,6 +8,8 @@ import {
 	useCheckoutChapa,
 	useCheckoutStrip,
 } from "@/actions/Query/payment_Query/payement_Query";
+import { getCurrencyExchangeRate } from "@/actions/pricing/currency";
+import InfoPopover from "@/components/shared/Popover/InfoPopover";
 import { Button } from "@/components/ui/button";
 import {
 	Card,
@@ -23,9 +25,11 @@ import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { pricingTiers } from "@/constants/data/PricingPlanData";
 import { useAppSelector } from "@/hooks/storehooks";
 import { cn } from "@/lib/utils";
+import { formatCurrency } from "@/lib/utils/currencyUtils";
 import { type PricingTier } from "@/types/pricing/PricingType";
 
 import { CheckoutDialog } from "./CheckoutDialog";
+import { PricingDisplay } from "./PricingDisplay";
 
 export default function FamilyPlanSelection({
 	userType,
@@ -42,7 +46,7 @@ export default function FamilyPlanSelection({
 		"with_deductible" | "non_deductible"
 	>("with_deductible");
 
-	const isDiaspora = userType === "diaspora";
+	const isDiaspora = userType === "diaspora" || userType === "international";
 	const currency = isDiaspora ? "USD" : "ETB";
 	const handleBillingCycleChange = (checked: boolean) => {
 		setBillingCycle(checked ? "yearly" : "monthly");
@@ -62,12 +66,39 @@ export default function FamilyPlanSelection({
 		familyData[0].representative_last_name
 	}`;
 
-	const planPrice =
-		selectedPlan?.[deductable].price[
-			billingCycle as keyof typeof selectedPlan.with_deductible.price
-		] || 0;
+	// const planPrice =
+	// 	selectedPlan?.[deductable].price[
+	// 		billingCycle as keyof typeof selectedPlan.with_deductible.price
+	// 	] || 0;
 
-	const totalPrice = planPrice * familyMembers;
+	// const totalPrice = planPrice * familyMembers;
+	const [planPrice, setPlanPrice] = useState<number>(0);
+	const [totalPrice, setTotalPrice] = useState<number>(0);
+
+	const getPlanPrice = (plan: PricingTier | null) => {
+		if (!plan) return 0;
+		return (
+			plan?.[deductable].price[
+				billingCycle as keyof typeof plan.with_deductible.price
+			] || 0
+		);
+	};
+
+	useEffect(() => {
+		const convertPrice = async () => {
+			const basePrice = getPlanPrice(selectedPlan);
+			if (currency === "ETB") {
+				const exchangeRate = await getCurrencyExchangeRate("ETB"); // Assuming getCurrencyExchangeRate is defined elsewhere
+				setPlanPrice(basePrice * exchangeRate);
+				setTotalPrice(basePrice * exchangeRate * familyMembers);
+			} else {
+				setPlanPrice(basePrice);
+				setTotalPrice(basePrice * familyMembers);
+			}
+		};
+
+		convertPrice();
+	}, [selectedPlan, currency, familyMembers]);
 
 	const { mutate: checkoutStripMutation } = useCheckoutStrip();
 	const { mutate: checkoutChapaMutation } = useCheckoutChapa();
@@ -113,17 +144,31 @@ export default function FamilyPlanSelection({
 		}
 		setIsDialogOpen(false);
 	};
+	const [convertedAmount, setConvertedAmount] = useState<string>("");
+	const convertCurrency = async ({ amountInUSD }: { amountInUSD: number }) => {
+		// const convertedAmount = await CurrencyUtils(amountInUSD, "ETB");
+		const exchangeValue = await getCurrencyExchangeRate("ETB");
+		setConvertedAmount(formatCurrency(exchangeValue * amountInUSD, "ETB"));
+	};
+	console.log(`Converted Amount: ${convertedAmount}`);
+
 	return (
 		<>
 			<div className="container mx-auto pb-12 px-4">
 				<div className="text-center mb-8">
-					<h2 className="text-3xl font-bold  ">Choose Your Plan</h2>
+					<h2 className="text-3xl font-bold  ">
+						Choose Your Plan <InfoPopover />
+					</h2>
 					<p>
 						Dear,{" "}
 						{familyData.length > 0 &&
 							`${familyData[0].representative_first_name} ${familyData[0].representative_last_name}`}
-						, Please select your plan.
+						, Please Choose your plan.
 					</p>
+					{/* <h2 className="text-3xl font-bold  ">
+						{" "}
+						Dear, {fullName} , Choose Your Plan <InfoPopover />
+					</h2> */}
 				</div>
 				<div className="flex items-center justify-center mb-8">
 					<Label htmlFor="billing-cycle" className="mr-2">
@@ -150,10 +195,7 @@ export default function FamilyPlanSelection({
 				</div>
 				<div className="grid grid-cols-1 md:grid-cols-4 gap-4">
 					{pricingTiers.map((tier, index) => (
-						<Card
-							key={index}
-							className={`flex flex-col ${index === 1 || index === 2 ? "border-primary border-2" : ""}`}
-						>
+						<Card key={index} className="flex flex-col">
 							<CardTitle className="p-2 px-4 text-2xl text-center font-bold">
 								{tier.title}
 							</CardTitle>
@@ -169,18 +211,27 @@ export default function FamilyPlanSelection({
 								<TabsContent value="with_deductible">
 									<CardHeader className="text-center p-0">
 										<CardDescription className="text-2xl">
-											{currency} {tier.with_deductible.price[billingCycle]}
-											<span className="font-normal text-muted-foreground">
-												/{billingCycle === "monthly" ? "mo" : "yr"}
-											</span>
+											<PricingDisplay
+												key={index}
+												tier={tier}
+												billingCycle={billingCycle}
+											/>
 										</CardDescription>
 									</CardHeader>
 									<CardContent className="flex-grow p-4 h-[400px]">
+										{/* <div className="flex items-center justify-center">
+											<span className="text-sm font-normal text-muted-foreground">
+												Deductable{" "}
+											</span>
+											<span className="text-sm font-normal pl-1 text-muted-foreground">
+												{tier.with_deductible.deductible_amount}
+											</span>
+										</div> */}
 										<div className="flex items-center justify-center">
 											<span className="text-sm font-normal text-muted-foreground">
-												Co-Insurance -{" "}
+												Co-Insurance{" "}
 											</span>
-											<span className="text-sm font-normal text-muted-foreground">
+											<span className="text-sm font-normal pl-1 text-muted-foreground">
 												{tier.with_deductible.coInsurance}%
 											</span>
 										</div>
@@ -212,7 +263,7 @@ export default function FamilyPlanSelection({
 									</CardContent>
 									<CardFooter>
 										<Button
-											className={`w-full mt-4 ${index === 0 || index === 3 ? "bg-secondary text-white" : ""}`}
+											className="w-full mt-4 bg-secondary text-white "
 											onClick={() =>
 												handlePlanSelection(tier, "with_deductible")
 											}
@@ -225,18 +276,24 @@ export default function FamilyPlanSelection({
 								<TabsContent value="non_deductible">
 									<CardHeader className="text-center p-0">
 										<CardDescription className="text-2xl">
-											{currency} {tier.non_deductible.price[billingCycle]}
+											{/* {currency} {tier.non_deductible.price[billingCycle]}
 											<span className="font-normal text-muted-foreground">
 												/{billingCycle === "monthly" ? "mo" : "yr"}
-											</span>
+											</span> */}
+											<PricingDisplay
+												key={index}
+												tier={tier}
+												billingCycle={billingCycle}
+												isNonDeductible={true}
+											/>
 										</CardDescription>
 									</CardHeader>
 									<CardContent className="flex-grow p-4 h-[400px]">
 										<div className="flex items-center justify-center">
 											<span className="text-sm font-normal text-muted-foreground">
-												Co-Insurance -{" "}
+												Co-Insurance{" "}
 											</span>
-											<span className="text-sm font-normal text-muted-foreground">
+											<span className="text-sm font-normal pl-1 text-muted-foreground">
 												{tier.with_deductible.coInsurance}%
 											</span>
 										</div>
@@ -268,7 +325,7 @@ export default function FamilyPlanSelection({
 									</CardContent>
 									<CardFooter>
 										<Button
-											className={`w-full mt-4 ${index === 0 || index === 3 ? "bg-secondary text-white" : ""}`}
+											className="w-full mt-4"
 											onClick={() =>
 												handlePlanSelection(tier, "non_deductible")
 											}
@@ -287,6 +344,7 @@ export default function FamilyPlanSelection({
 				isOpen={isDialogOpen}
 				onOpenChange={setIsDialogOpen}
 				selectedPlan={selectedPlan}
+				planPrice={planPrice}
 				totalPrice={totalPrice}
 				familyMembers={familyMembers}
 				billingCycle={billingCycle}

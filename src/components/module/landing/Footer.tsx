@@ -9,7 +9,6 @@ import {
 	Twitter,
 } from "lucide-react";
 
-import { Button } from "@/components/ui/button";
 import { IMAGES } from "@/constants/files";
 
 const Footer = () => {
@@ -53,10 +52,11 @@ const Footer = () => {
 							/>
 						</h3>
 						<p className="text-sm">
-							Email: <span className="text-primary">info@tillaHealth.com</span>
+							Email:{" "}
+							<span className="text-primary">support@tillahealth.com</span>
 						</p>
 						<p className="text-sm mb-2">
-							Phone: <span className="text-primary">(123) 456-7890</span>
+							Phone: <span className="text-primary">+251-1968658292</span>
 						</p>
 					</div>
 

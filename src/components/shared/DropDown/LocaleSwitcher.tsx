@@ -103,7 +103,11 @@ const LocaleSwitcher: NextPage<LocaleSwitcherProps> = ({
 						className="cursor-pointer w-8 h-8 flex items-center justify-center"
 					>
 						<AvatarFallback className="text-xl font-bold">
-							{localeValue === "en-US" ? "አ" : "A"}
+							{localeValue === "en-US" ? (
+								<span className={"size-5 mr-2 fi fi-et"}></span>
+							) : (
+								<span className={"size-5 mr-2 fi fi-us"}></span>
+							)}
 						</AvatarFallback>
 					</Avatar>
 				)}

@@ -1,7 +1,7 @@
 "use client";
 
 import { useRouter } from "next/navigation";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 
 import { Check, X } from "lucide-react";
 
@@ -9,6 +9,7 @@ import {
 	useCheckoutChapa,
 	useCheckoutStrip,
 } from "@/actions/Query/payment_Query/payement_Query";
+import { getCurrencyExchangeRate } from "@/actions/pricing/currency";
 import InfoPopover from "@/components/shared/Popover/InfoPopover";
 import { Button } from "@/components/ui/button";
 import {
@@ -28,6 +29,7 @@ import { cn } from "@/lib/utils";
 import { type PricingTier } from "@/types/pricing/PricingType";
 
 import { CheckoutDialog } from "./CheckoutDialog";
+import { PricingDisplay } from "./PricingDisplay";
 
 export default function PlanSelection({ userType }: { userType: string }) {
 	const [billingCycle, setBillingCycle] = useState<"monthly" | "yearly">(
@@ -62,13 +64,40 @@ export default function PlanSelection({ userType }: { userType: string }) {
 			}`
 		: `${memberData.first_name} ${memberData.last_name}`;
 
-	const planPrice =
-		selectedPlan?.[deductable].price[
-			billingCycle as keyof typeof selectedPlan.with_deductible.price
-		] || 0;
+	// const planPrice =
+	// 	selectedPlan?.[deductable].price[
+	// 		billingCycle as keyof typeof selectedPlan.with_deductible.price
+	// 	] || 0;
 
 	const memberCount = 1;
-	const totalPrice = planPrice * memberCount;
+	const [planPrice, setPlanPrice] = useState<number>(0);
+	const [totalPrice, setTotalPrice] = useState<number>(0);
+
+	const getPlanPrice = (plan: PricingTier | null) => {
+		if (!plan) return 0;
+		return (
+			plan?.[deductable].price[
+				billingCycle as keyof typeof plan.with_deductible.price
+			] || 0
+		);
+	};
+
+	useEffect(() => {
+		const convertPrice = async () => {
+			const basePrice = getPlanPrice(selectedPlan);
+			if (currency === "ETB") {
+				const exchangeRate = await getCurrencyExchangeRate("ETB"); // Assuming getCurrencyExchangeRate is defined elsewhere
+				setPlanPrice(basePrice * exchangeRate);
+				setTotalPrice(basePrice * exchangeRate * memberCount);
+			} else {
+				setPlanPrice(basePrice);
+				setTotalPrice(basePrice * memberCount);
+			}
+		};
+
+		convertPrice();
+	}, [selectedPlan, currency, memberCount]);
+	// const totalPrice = planPrice * memberCount;
 
 	const { mutate: checkoutStripMutation } = useCheckoutStrip();
 	const { mutate: checkoutChapaMutation } = useCheckoutChapa();
@@ -177,18 +206,19 @@ export default function PlanSelection({ userType }: { userType: string }) {
 								<TabsContent value="with_deductible">
 									<CardHeader className="text-center p-0">
 										<CardDescription className="text-2xl">
-											{currency} {tier.with_deductible.price[billingCycle]}
-											<span className="font-normal text-muted-foreground">
-												/{billingCycle === "monthly" ? "mo" : "yr"}
-											</span>
+											<PricingDisplay
+												key={index}
+												tier={tier}
+												billingCycle={billingCycle}
+											/>
 										</CardDescription>
 									</CardHeader>
 									<CardContent className="flex-grow p-4 h-[400px]">
 										<div className="flex items-center justify-center">
 											<span className="text-sm font-normal text-muted-foreground">
-												Co-Insurance -{" "}
+												Co-Insurance{" "}
 											</span>
-											<span className="text-sm font-normal text-muted-foreground">
+											<span className="text-sm font-normal pl-1 text-muted-foreground">
 												{tier.with_deductible.coInsurance}%
 											</span>
 										</div>
@@ -233,18 +263,24 @@ export default function PlanSelection({ userType }: { userType: string }) {
 								<TabsContent value="non_deductible">
 									<CardHeader className="text-center p-0">
 										<CardDescription className="text-2xl">
-											{currency} {tier.non_deductible.price[billingCycle]}
+											{/* {currency} {tier.non_deductible.price[billingCycle]}
 											<span className="font-normal text-muted-foreground">
 												/{billingCycle === "monthly" ? "mo" : "yr"}
-											</span>
+											</span> */}
+											<PricingDisplay
+												key={index}
+												tier={tier}
+												billingCycle={billingCycle}
+												isNonDeductible={true}
+											/>
 										</CardDescription>
 									</CardHeader>
 									<CardContent className="flex-grow p-4 h-[400px]">
 										<div className="flex items-center justify-center">
 											<span className="text-sm font-normal text-muted-foreground">
-												Co-Insurance -{" "}
+												Co-Insurance{" "}
 											</span>
-											<span className="text-sm font-normal text-muted-foreground">
+											<span className="text-sm font-normal pl-1 text-muted-foreground">
 												{tier.with_deductible.coInsurance}%
 											</span>
 										</div>
@@ -295,6 +331,7 @@ export default function PlanSelection({ userType }: { userType: string }) {
 				isOpen={isDialogOpen}
 				onOpenChange={setIsDialogOpen}
 				selectedPlan={selectedPlan}
+				planPrice={planPrice}
 				totalPrice={totalPrice}
 				familyMembers={memberCount}
 				billingCycle={billingCycle}

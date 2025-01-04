@@ -7,6 +7,7 @@ import { ScrollTrigger } from "gsap/ScrollTrigger";
 import { useTranslations } from "next-intl";
 
 import CTA from "@/components/module/landing/CTA";
+import FAQSection from "@/components/module/landing/FAQ";
 import { HeroHighlightDemo } from "@/components/module/landing/HeroHighLight";
 import { PartnerSlider } from "@/components/module/landing/PartnerSlider";
 import ProviderHero from "@/components/module/landing/provider/HeroProvider";
@@ -73,6 +74,14 @@ export default function ProviderScreen() {
 					registerLink="/broker"
 					slug="join-network"
 				/>
+				<main className="flex-grow py-12 mb-12 px-4 sm:px-6 lg:px-8">
+					<div className="max-w-3xl mx-auto">
+						<h1 className="text-3xl font-bold text-center text-gray-900 mb-8">
+							Frequently Asked Questions
+						</h1>
+						<FAQSection />
+					</div>
+				</main>
 			</main>
 		</div>
 	);

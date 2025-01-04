@@ -1,9 +1,10 @@
 "use client";
 
-import { useState } from "react";
+import { useEffect, useState } from "react";
 
 import { Calendar, CheckCircle, CreditCard, Users, Wallet } from "lucide-react";
 
+import { getCurrencyExchangeRate } from "@/actions/pricing/currency";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardFooter } from "@/components/ui/card";
 import { Checkbox } from "@/components/ui/checkbox";
@@ -15,6 +16,7 @@ import {
 	DialogTitle,
 } from "@/components/ui/dialog";
 import { Separator } from "@/components/ui/separator";
+import { formatCurrency } from "@/lib/utils/currencyUtils";
 import { type PricingTier } from "@/types/pricing/PricingType";
 
 import { TermsAndPolicyModal } from "./terms-and-policy-modal";
@@ -22,12 +24,13 @@ import { TermsAndPolicyModal } from "./terms-and-policy-modal";
 interface CheckoutDialogProps {
 	isOpen: boolean;
 	onOpenChange: (open: boolean) => void;
-	selectedPlan?: PricingTier | null;
+	selectedPlan: PricingTier | null;
 	familyMembers: number;
 	billingCycle: string;
-	currency: string;
-	deductable: "with_deductible" | "non_deductible";
+	planPrice: number;
 	totalPrice: number;
+	currency: string;
+	deductable?: "with_deductible" | "non_deductible";
 	name: string;
 	onSubmit: (paymentMethod: "stripe" | "chapa") => void;
 }
@@ -37,9 +40,10 @@ export function CheckoutDialog({
 	onOpenChange,
 	selectedPlan,
 	familyMembers,
-	billingCycle,
-	deductable,
+	planPrice,
 	totalPrice,
+	billingCycle,
+	deductable = "with_deductible",
 	name,
 	currency,
 	onSubmit,
@@ -47,11 +51,6 @@ export function CheckoutDialog({
 	const [termsAgreed, setTermsAgreed] = useState(false);
 	const [policyAgreed, setPolicyAgreed] = useState(false);
 	const [termsModalOpen, setTermsModalOpen] = useState(false);
-
-	const planPrice =
-		selectedPlan?.[deductable].price[
-			billingCycle as keyof typeof selectedPlan.with_deductible.price
-		] || 0;
 
 	const handleSubmit = (paymentMethod: "stripe" | "chapa") => {
 		if (termsAgreed && policyAgreed) {
@@ -90,7 +89,11 @@ export function CheckoutDialog({
 											</span>
 										</div>
 										<span className="font-semibold">
-											{planPrice.toFixed(2)} {currency}
+											{planPrice ? (
+												formatCurrency(planPrice, currency)
+											) : (
+												<span className="animate-ping">...</span>
+											)}
 										</span>
 									</div>
 									<div className="flex items-center justify-between">
@@ -115,8 +118,11 @@ export function CheckoutDialog({
 							<CardFooter className="justify-between">
 								<span className="text-lg font-bold">Total</span>
 								<span className="text-lg font-bold text-green-600">
-									{currency === "USD" ? "$" : ""}
-									{totalPrice.toFixed(2)} {currency}
+									{totalPrice ? (
+										formatCurrency(totalPrice, currency)
+									) : (
+										<span className="animate-ping">...</span>
+									)}
 								</span>
 							</CardFooter>
 						</Card>

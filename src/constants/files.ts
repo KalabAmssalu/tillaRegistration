@@ -39,6 +39,8 @@ import redCrossLog from "../../public/images/redcross.png";
 import semahHospital from "../../public/images/semah.jpeg";
 import sampleImage5 from "../../public/images/support.jpeg";
 import tikurHospital from "../../public/images/tikuranbesa.jpeg";
+import training2 from "../../public/images/training2.webp";
+import training from "../../public/images/training.jpg";
 import transport2 from "../../public/images/transport2.jpeg";
 import transportWithHelicopter2 from "../../public/images/transportemergency.jpeg";
 import transportToClinic from "../../public/images/transporttoclinic.jpeg";
@@ -94,4 +96,6 @@ export const IMAGES = Object.freeze({
 	broker3: broker3,
 	broker4: broker4,
 	family2: family2,
+	training: training,
+	training2: training2,
 });

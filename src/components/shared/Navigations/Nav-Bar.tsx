@@ -54,7 +54,7 @@ const Navbar = () => {
 							<PhoneOutgoing className="mr-2 h-4 w-4" />
 							<span className="sm:flex hidden">Contact</span>
 						</Button>
-						<DropdownMenu>
+						{/* <DropdownMenu>
 							<DropdownMenuTrigger asChild>
 								<Button variant={"outline"} className=" h-6 gap-3" size={"sm"}>
 									<LogIn size={15} />
@@ -82,7 +82,7 @@ const Navbar = () => {
 									</DropdownMenuItem>
 								</DropdownMenuGroup>
 							</DropdownMenuContent>
-						</DropdownMenu>
+						</DropdownMenu> */}
 					</div>
 				</div>
 			</div>

@@ -1,9 +1,35 @@
-import { IMAGES } from "@/constants/files";
+import { type IMAGES } from "@/constants/files";
 
 import { HeroInfo } from "../HeroInfo";
-import { Info } from "../Info";
 
 const ProviderPortals = [
+	{
+		title: "Government Collaboration for Healthcare Provider Training",
+		description:
+			"We work with the Ethiopian government to train healthcare providers and hospital employees on the fundamentals of health insurance.",
+		image: "training" as keyof typeof IMAGES,
+		href: "/provider/provider-network",
+		slug: "provider-network",
+		linkText: "Interested in participating?  →",
+	},
+	{
+		title: "Education for Individual Providers and Healthcare Facilities",
+		description:
+			"We provide tailored educational programs for individual providers, clinics, and hospitals to help them integrate health insurance into their services.",
+		image: "training2" as keyof typeof IMAGES,
+		href: "/provider/training-education",
+		slug: "provider-training",
+		linkText: "Ready to start?  →",
+	},
+	{
+		title: "How to Join the Tilla Health Network?",
+		description:
+			"Tilla Health is proud to collaborate with dedicated healthcare professionals to deliver high-quality care to our members. Joining the Tilla Health network means becoming part of a community of providers committed to excellence, innovation, and compassionate care.",
+		image: "doctor" as keyof typeof IMAGES,
+		href: "/provider/tilla-network",
+		slug: "join-network",
+		linkText: "Joining the Tilla Health Network →",
+	},
 	{
 		title: "Become a Credentialed Provider in Ethiopia",
 		description: "Learn how become a Tilla Health Provider",
