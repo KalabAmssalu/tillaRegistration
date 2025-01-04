@@ -2,7 +2,6 @@
 import provider2 from "../../public/images/Experiencedblackdoctor.jpeg";
 import provider5 from "../../public/images/Healthcare Consultation.jpeg";
 import kadiscoHospital from "../../public/images/Kadisco.jpeg";
-import logobluetransparent from "../../public/images/Logo-notext-Blue-transparent.png";
 import provider4 from "../../public/images/MedicalProvider.jpeg";
 import nordicHospital from "../../public/images/Nordic.jpeg";
 import abayHospital from "../../public/images/abay.jpeg";
@@ -23,6 +22,7 @@ import federal from "../../public/images/gov.png";
 import sampleImage2 from "../../public/images/insurance.jpg";
 import internationalGlob from "../../public/images/internationalGlobe.png";
 import landMarkHospital from "../../public/images/landmark.jpeg";
+import logobluetransparent from "../../public/images/logo-blue.png";
 import member1 from "../../public/images/member1.jpeg";
 import member2 from "../../public/images/member2.jpeg";
 import member6 from "../../public/images/member6.jpeg";

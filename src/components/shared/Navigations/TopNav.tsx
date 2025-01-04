@@ -23,14 +23,15 @@ const TopNav = () => {
 					<div className="flex items-center gap-2">
 						<Image
 							src={IMAGES.blueLogo}
-							width={30}
+							width={140}
 							alt={"logo"}
+							className="h-12 dark:bg-white dark:px-2 dark:rounded-md"
 							onClick={() => route.push("/home")}
 						/>
 						{/* Display only on medium screens and above */}
-						<div className="hidden md:block text-xl font-bold text-primary hover:cursor-pointer mr-6 ">
+						{/* <div className="hidden md:block text-xl font-bold text-primary hover:cursor-pointer mr-6 ">
 							Tilla Health Insurance
-						</div>
+						</div> */}
 						<div className="hidden md:block">
 							<NavigationMenuConf closeMenu={() => setIsMenuOpen(false)} />
 						</div>

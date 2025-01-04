@@ -1,10 +1,14 @@
 "use client";
 
+import { useState } from "react";
+
 import { zodResolver } from "@hookform/resolvers/zod";
 import { Mail, MapPin, Phone } from "lucide-react";
 import { useForm } from "react-hook-form";
+import { toast } from "sonner";
 import * as z from "zod";
 
+import { sendEmail } from "@/actions/auth/send-email";
 import { Button } from "@/components/ui/button";
 import {
 	Card,
@@ -37,6 +41,8 @@ const formSchema = z.object({
 });
 
 export default function ContactScreen() {
+	const [serverError, setServerError] = useState<string | null>(null);
+	const [isSubmitting, setIsSubmitting] = useState(false);
 	const form = useForm<z.infer<typeof formSchema>>({
 		resolver: zodResolver(formSchema),
 		defaultValues: {
@@ -46,9 +52,24 @@ export default function ContactScreen() {
 		},
 	});
 
-	function onSubmit(values: z.infer<typeof formSchema>) {
-		console.log("Form submitted:", values);
-		form.reset();
+	async function onSubmit(values: z.infer<typeof formSchema>) {
+		setIsSubmitting(true);
+		setServerError(null);
+		const formData = new FormData();
+		Object.entries(values).forEach(([key, value]) => {
+			formData.append(key, value);
+		});
+
+		const result = await sendEmail(formData);
+
+		if (result.error) {
+			setServerError(result.error);
+			toast.error(result.error);
+		} else {
+			setIsSubmitting(false);
+			form.reset();
+			toast.success("Your message has been sent successfully!");
+		}
 	}
 
 	return (
@@ -165,8 +186,15 @@ export default function ContactScreen() {
 										</FormItem>
 									)}
 								/>
-								<Button type="submit" className="w-full">
-									Send Message
+								{serverError && (
+									<p className="text-destructive text-sm">{serverError}</p>
+								)}
+								<Button
+									type="submit"
+									className="w-full"
+									disabled={isSubmitting}
+								>
+									{isSubmitting ? "Submitting..." : "Send Message"}
 								</Button>
 							</form>
 						</Form>

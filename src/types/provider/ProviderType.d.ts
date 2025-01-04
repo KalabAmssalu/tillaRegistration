@@ -63,3 +63,21 @@ export interface ProviderTitleOption {
 	value: ProviderTitle;
 	label: string;
 }
+
+export interface TrainingOrgType {
+	name: string;
+	organization: string;
+	email: string;
+	phone: string;
+	role: string;
+	message: string;
+}
+
+export interface TrainingType {
+	name: string;
+	practiceName: string;
+	email: string;
+	phone: string;
+	specialization: string;
+	message: string;
+}
