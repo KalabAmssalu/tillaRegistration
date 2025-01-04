@@ -22,13 +22,19 @@ export const PricingDisplay: React.FC<PricingDisplayProps> = ({
 	useEffect(() => {
 		const convertPrices = async () => {
 			const exchangeRate = await getCurrencyExchangeRate("ETB");
-			const usdPrice = tier.with_deductible.price[billingCycle];
-			setEtbPrice(usdPrice * exchangeRate);
-			setEtbDeductible(tier.with_deductible.deductible_amount * exchangeRate);
+			if (isNonDeductible) {
+				const usdPrice = tier.non_deductible.price[billingCycle];
+				setEtbPrice(usdPrice * exchangeRate);
+				setEtbDeductible(tier.with_deductible.deductible_amount * exchangeRate);
+			} else {
+				const usdPrice = tier.with_deductible.price[billingCycle];
+				setEtbPrice(usdPrice * exchangeRate);
+				setEtbDeductible(tier.with_deductible.deductible_amount * exchangeRate);
+			}
 		};
 
 		convertPrices();
-	}, [tier, billingCycle]);
+	}, [tier, billingCycle, isNonDeductible]);
 
 	return (
 		<div className="flex flex-col space-y-4">
@@ -36,7 +42,15 @@ export const PricingDisplay: React.FC<PricingDisplayProps> = ({
 				<div className="flex items-center justify-center gap-2">
 					<div>
 						<p className="text-primary">
-							{formatCurrency(tier.with_deductible.price[billingCycle], "USD")}
+							{!isNonDeductible
+								? formatCurrency(
+										tier.with_deductible.price[billingCycle],
+										"USD"
+									)
+								: formatCurrency(
+										tier.non_deductible.price[billingCycle],
+										"USD"
+									)}
 						</p>
 						<div className="text-sm font-normal text-muted-foreground">
 							{etbPrice && ` ${formatCurrency(etbPrice, "ETB")}`}

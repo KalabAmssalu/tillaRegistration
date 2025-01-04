@@ -325,7 +325,7 @@ export default function FamilyPlanSelection({
 									</CardContent>
 									<CardFooter>
 										<Button
-											className="w-full mt-4"
+											className="w-full mt-4 bg-secondary"
 											onClick={() =>
 												handlePlanSelection(tier, "non_deductible")
 											}

@@ -17,7 +17,7 @@ export const getCurrencyExchangeRate = async (
 		}
 
 		const data = await response.json();
-		console.log("data exchange", data);
+		// console.log("data exchange", data);
 		const rate = data.conversion_rate;
 
 		return rate;

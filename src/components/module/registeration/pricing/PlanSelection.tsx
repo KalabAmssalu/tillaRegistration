@@ -210,6 +210,7 @@ export default function PlanSelection({ userType }: { userType: string }) {
 												key={index}
 												tier={tier}
 												billingCycle={billingCycle}
+												isNonDeductible={false}
 											/>
 										</CardDescription>
 									</CardHeader>
