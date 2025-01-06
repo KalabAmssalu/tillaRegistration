@@ -26,12 +26,12 @@ export default function ProviderSelection() {
 		router.push(`/provider/register?${query}` as `/${string}`);
 	};
 
-	const handleDownload = () => {
-		downloadFile(
-			`${window.location.origin}/docs/Tilla_Health_Provider_Guide.pdf`,
-			"Tilla_Health_Provider_Guide.pdf"
-		);
-	};
+	// const handleDownload = () => {
+	// 	downloadFile(
+	// 		`${window.location.origin}/docs/Tilla_Health_Provider_Guide.pdf`,
+	// 		"Tilla_Health_Provider_Guide.pdf"
+	// 	);
+	// };
 
 	return (
 		<>
@@ -51,22 +51,22 @@ export default function ProviderSelection() {
 				}))}
 				footerText="Need assistance?"
 				footerLink={{ label: "Contact Support", href: "/support" }}
-				additionalComponent={
-					<div className="flex items-center justify-center flex-col gap-2">
-						<div className="text-lg text-white text-center">
-							CLick Here to download a Document to Join the Tilla Health
-							Provider Network
-						</div>
+				// additionalComponent={
+				// 	<div className="flex items-center justify-center flex-col gap-2">
+				// 		<div className="text-lg text-white text-center">
+				// 			CLick Here to download a Document to Join the Tilla Health
+				// 			Provider Network
+				// 		</div>
 
-						<Button
-							onClick={handleDownload}
-							className="px-6 py-2 flex gap-2 border-2 animate-pulse hover:bg-primary hover:animate-none bg-blue-700 border-white"
-						>
-							Download
-							<FileDown size={24} />
-						</Button>
-					</div>
-				}
+				// 		<Button
+				// 			onClick={handleDownload}
+				// 			className="px-6 py-2 flex gap-2 border-2 animate-pulse hover:bg-primary hover:animate-none bg-blue-700 border-white"
+				// 		>
+				// 			Download
+				// 			<FileDown size={24} />
+				// 		</Button>
+				// 	</div>
+				// }
 			/>
 		</>
 	);
