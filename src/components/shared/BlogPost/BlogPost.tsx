@@ -1,7 +1,7 @@
 "use client";
 
 import Image from "next/image";
-import { useEffect, useState } from "react";
+import { ReactNode, useEffect, useState } from "react";
 
 import { AnimatePresence, motion } from "framer-motion";
 import {
@@ -48,12 +48,13 @@ export interface BlogPostProps {
 		title: string;
 		content: string;
 	};
-	callToAction: {
+	callToAction?: {
 		title: string;
 		content: string;
 		buttonText: string;
 		buttonLink: string;
 	};
+	additionalComponent?: React.ReactNode;
 }
 
 export function BlogPost({
@@ -67,6 +68,7 @@ export function BlogPost({
 	howToGetStarted,
 	promiseSection,
 	callToAction,
+	additionalComponent,
 }: BlogPostProps) {
 	const [expandedFeature, setExpandedFeature] = useState<number | null>(null);
 	const [isModalOpen, setIsModalOpen] = useState(false);
@@ -88,7 +90,7 @@ export function BlogPost({
 		{ title: whyChooseTitle, id: "why-choose" },
 		{ title: howToGetStarted.title, id: "how-to-start" },
 		{ title: promiseSection.title, id: "our-promise" },
-		{ title: callToAction.title, id: "call-to-action" },
+		{ title: callToAction?.title, id: "call-to-action" },
 	];
 
 	useEffect(() => {
@@ -373,32 +375,36 @@ export function BlogPost({
 				</motion.div>
 
 				{/* Call to Action Section */}
-				<motion.div
-					initial={{ opacity: 0, y: 20 }}
-					animate={{ opacity: 1, y: 0 }}
-					transition={{ delay: 1.1, duration: 0.5 }}
-					className="text-center bg-primary text-primary-foreground rounded-xl p-8 shadow-2xl"
-					id="call-to-action"
-				>
-					<h2 className="text-3xl font-semibold mb-4">{callToAction.title}</h2>
-					<p className="text-lg leading-relaxed mb-6 max-w-2xl mx-auto">
-						{callToAction.content}
-					</p>
-					<Button
-						asChild
-						size="lg"
-						variant="secondary"
-						className="font-semibold text-lg px-8 py-6 rounded-full hover:scale-105 transition-transform duration-300"
+				{callToAction && (
+					<motion.div
+						initial={{ opacity: 0, y: 20 }}
+						animate={{ opacity: 1, y: 0 }}
+						transition={{ delay: 1.1, duration: 0.5 }}
+						className="text-center bg-primary text-primary-foreground rounded-xl p-8 shadow-2xl"
+						id="call-to-action"
 					>
-						<a
-							href={callToAction.buttonLink}
-							className="inline-flex items-center"
+						<h2 className="text-3xl font-semibold mb-4">
+							{callToAction.title}
+						</h2>
+						<p className="text-lg leading-relaxed mb-6 max-w-2xl mx-auto">
+							{callToAction.content}
+						</p>
+						<Button
+							asChild
+							size="lg"
+							variant="secondary"
+							className="font-semibold text-lg px-8 py-6 rounded-full hover:scale-105 transition-transform duration-300"
 						>
-							{callToAction.buttonText}
-							<ArrowRight className="ml-2 h-5 w-5" />
-						</a>
-					</Button>
-				</motion.div>
+							<a
+								href={callToAction.buttonLink}
+								className="inline-flex items-center"
+							>
+								{callToAction.buttonText}
+								<ArrowRight className="ml-2 h-5 w-5" />
+							</a>
+						</Button>
+					</motion.div>
+				)}
 			</article>
 
 			{/* Feature Modal */}
@@ -422,6 +428,7 @@ export function BlogPost({
 					</div>
 				</DialogContent>
 			</Dialog>
+			{additionalComponent}
 		</div>
 	);
 }

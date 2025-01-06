@@ -1,5 +1,6 @@
 import type { ReactNode } from "react";
 
+import SupportChat from "@/components/module/Support/support-chat";
 import Footer from "@/components/module/landing/Footer";
 import Navbar from "@/components/shared/Navigations/Nav-Bar";
 import TopNav from "@/components/shared/Navigations/TopNav";
@@ -18,6 +19,7 @@ export default function AuthLayout({ children }: AuthLayoutProps) {
 					<TopNav />
 				</div>
 				{children}
+				<SupportChat />
 				<Footer />
 			</div>
 		</GeneralShell>

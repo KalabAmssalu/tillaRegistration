@@ -1,0 +1,233 @@
+[
+	{
+		"keywords": ["register", "member"],
+		"answer": "To register as a member, click the 'Tilla Health Members' and Click the first 'Register as a member' button on the top header and fill out the required details based on your plan."
+	},
+	{
+		"keywords": ["register", "provider"],
+		"answer": "To register as a provider, click the 'Tilla Health Providers' and  click the first 'Register as a Provider' button, fill out the required details, and submit the form for verification."
+	},
+	{
+		"keywords": ["register", "broker"],
+		"answer": "To register as a broker,  click the 'Tilla Health Brokers' and click the 'Register as a Broker' button, complete the registration form, and provide the necessary documentation for approval."
+	},
+	{
+		"keywords": ["register", "organization"],
+		"answer": "To register an organization, click the 'Tilla Health Members' and Click the first 'Register as a member' button, choose your organization type and enter the organization details, and submit the required documents for review."
+	},
+	{
+		"keywords": ["email", "verification"],
+		"answer": "To verify your email address, add your working email and click on the 'Email Verification' button then you will recieve an email from us containing a OTP and fill the otp to verify your email."
+	},
+	{
+		"keywords": ["email", "otp"],
+		"answer": "To verify your email address, add your working email and click on the 'Email Verification' button then you will recieve an email from us containing a OTP and fill the otp to verify your email."
+	},
+	{
+		"keywords": ["system", "issue"],
+		"answer": "If you're experiencing issues with the system, please try refreshing the page, clearing your browser cache, or contact support if the issue persists."
+	},
+	{
+		"keywords": ["hello"],
+		"answer": "Hello! How can I assist you today?"
+	},
+	{
+		"keywords": ["hi"],
+		"answer": "Hello! How can I assist you today?"
+	},
+	{
+		"keywords": ["greet"],
+		"answer": "Hello! How can I assist you today?"
+	},
+	{
+		"keywords": ["good morning"],
+		"answer": "Good morning! How can I help you today?"
+	},
+	{
+		"keywords": ["good afternoon"],
+		"answer": "Good afternoon! How can I assist you today?"
+	},
+	{
+		"keywords": ["good evening"],
+		"answer": "Good evening! How may I assist you?"
+	},
+	{
+		"keywords": ["how are you"],
+		"answer": "I'm doing great, thank you for asking! How can I help you today?"
+	},
+	{
+		"keywords": [
+			"pricing",
+			"about plan",
+			"health insurance plans",
+			"list of plans"
+		],
+		"answer": "Here is the plan pricing list click this link to download.",
+		"link": "https://member.tillahealth.com/docs/plans.pdf"
+	},
+	{
+		"keywords": ["basic plan", "basic coverage"],
+		"answer": "The Basic Plan includes routine check-ups, vaccinations, and preventive care. It provides limited access to specialists and partial coverage for hospital stays, but it does not cover chronic disease management, maternity care, mental health services, or telehealth."
+	},
+	{
+		"keywords": ["standard plan", "standard coverage"],
+		"answer": "The Standard Plan offers all Basic Plan services, plus access to general practitioners and specialists for common conditions. It covers planned hospitalizations, basic chronic disease management, partial maternity care, basic counseling services, telemedicine, and care coordination."
+	},
+	{
+		"keywords": ["comprehensive plan", "comprehensive full coverage"],
+		"answer": "The Comprehensive Plan includes all Standard Plan services, access to a wide range of specialists, full coverage for hospitalizations, comprehensive chronic disease management, full maternity care, advanced mental health services, and full telemedicine access."
+	},
+	{
+		"keywords": ["family plan", "family coverage"],
+		"answer": "The Family Plan covers comprehensive care for all family members, including pediatric and elderly care. It provides full access to specialists, comprehensive hospital coverage, chronic disease management, maternity and newborn care, mental health services, and telehealth."
+	},
+	{
+		"keywords": ["primary care", "routine check-ups"],
+		"answer": "Primary care in all plans includes routine check-ups, vaccinations, and preventive care. Comprehensive and Family Plans extend these services to additional diagnostics and specific family member needs."
+	},
+	{
+		"keywords": ["specialty care", "specialists"],
+		"answer": "Access to specialists varies: Basic Plan offers limited access, Standard Plan includes common condition specialists, and Comprehensive and Family Plans provide full access to a wide range of specialties."
+	},
+	{
+		"keywords": ["emergency care", "urgent care"],
+		"answer": "Emergency and urgent care coverage increases with each plan, from emergency-only visits in the Basic Plan to full coverage, including ambulance services, in Comprehensive and Family Plans."
+	},
+	{
+		"keywords": ["hospitalization", "hospital stays"],
+		"answer": "Hospitalization coverage ranges from partial coverage in the Basic Plan to full coverage for planned and emergency hospitalizations in the Comprehensive and Family Plans."
+	},
+	{
+		"keywords": ["chronic disease management"],
+		"answer": "Chronic disease management is not included in the Basic Plan but is covered for common conditions in the Standard Plan and comprehensively in the Comprehensive and Family Plans."
+	},
+	{
+		"keywords": ["maternity care", "newborn care"],
+		"answer": "Maternity and newborn care is not covered in the Basic Plan but is partially covered in the Standard Plan. Full coverage is provided in the Comprehensive and Family Plans."
+	},
+	{
+		"keywords": ["mental health services"],
+		"answer": "Mental health services are not included in the Basic Plan, but basic counseling is provided in the Standard Plan. Comprehensive therapy and psychiatric care are available in the Comprehensive and Family Plans."
+	},
+	{
+		"keywords": ["telehealth services", "telemedicine"],
+		"answer": "Telehealth services are not included in the Basic Plan. The Standard Plan includes general telemedicine consultations, while the Comprehensive and Family Plans provide full telemedicine access for general and specialty care."
+	},
+	{
+		"keywords": ["international care"],
+		"answer": "Additional coverage is available in the Standard Plan and above, including care coordination, second opinion services, and international care in the Family Plan."
+	},
+	{
+		"keywords": ["international health plan", "global healthcare"],
+		"answer": "The International Health Plan provides flexible healthcare coverage for individuals seeking personal healthcare solutions. It includes options for primary care, specialized treatment, mental health support, and chronic disease management."
+	},
+	{
+		"keywords": [
+			"international health plan eligibility",
+			"international health plan age limit",
+			"international health plan dependent coverage"
+		],
+		"answer": "Eligibility for the plan includes main members and dependents from birth (for term babies of 38 weeks) up to 64 years of age."
+	},
+	{
+		"keywords": [
+			"international health plan global network",
+			" international health plan hospital access"
+		],
+		"answer": "Key features include access to a vast network of hospitals and expert physicians across 183 countries, including Africa, India, the Middle East, Europe, Asia, and South America."
+	},
+	{
+		"keywords": [
+			"diaspora health connect",
+			"Ethiopian diaspora",
+			"diaspora health healthcare plan",
+			"diaspora health plan",
+			"diaspora insurance plan"
+		],
+		"answer": "Diaspora Health Connect is a dedicated healthcare plan for Ethiopian diaspora members who wish to support their families back home. It offers full coverage for children, spouses, and elderly parents, with access to preventive care, chronic disease management, and telemedicine services."
+	},
+	{
+		"keywords": [
+			"diaspora health plan eligibility",
+			"diaspora health plan age limit",
+			"diaspora health plan dependent coverage",
+			"diaspora health plan maternity benefits"
+		],
+		"answer": "Eligibility includes main members and dependents from birth (for term babies of 38 weeks) up to 64 years of age. The plan also includes maternity benefits, last expense coverage, no health check-up requirements for enrollment, and minimal waiting periods for benefits."
+	},
+	{
+		"keywords": [
+			"diaspora health plan family coverage",
+			" diaspora health plan health services abroad"
+		],
+		"answer": "Key features of the plan include being designed for the Ethiopian diaspora community, seamless coverage for family health needs, and easy access to health services while abroad or in Ethiopia."
+	},
+	{
+		"keywords": ["individual health plan", "personal healthcare"],
+		"answer": "The Individual Health Plan offers flexible healthcare coverage for individuals seeking personal healthcare solutions. It includes options for primary care, specialized treatment, mental health support, and chronic disease management."
+	},
+	{
+		"keywords": [
+			"individual health plan eligibility",
+			" individual health plan age limit",
+			" individual health plan member criteria"
+		],
+		"answer": "Eligibility is for members aged 18 to 60 years. For existing members, eligibility can be extended up to 65 years."
+	},
+	{
+		"keywords": ["individual health plan coverage"],
+		"answer": "Key features include annual check-ups to promote preventive health, comprehensive inpatient and outpatient coverage, immunizations and pediatric visits for dependents, and 24/7 telemedicine consultations for immediate access to care."
+	},
+	{
+		"keywords": [
+			"family health plan",
+			"family coverage",
+			"comprehensive family healthcare"
+		],
+		"answer": "The Family Health Plan provides comprehensive health coverage for families, including children, spouses, and elderly parents. It offers options for preventive care, maternity services, pediatric and geriatric care, as well as chronic disease management."
+	},
+	{
+		"keywords": [
+			"Family Health Plan eligibility",
+			" Family Health Plan family members",
+			" Family Health Plan dependent coverage"
+		],
+		"answer": "Main members and dependents are eligible from birth (for term babies of 38 weeks) up to 64 years of age."
+	},
+	{
+		"keywords": ["family health needs"],
+		"answer": "Key features include comprehensive annual check-ups for the entire family, inpatient and outpatient services tailored to family health needs, pediatric care and immunizations for dependents, and 24/7 telemedicine consultations to address family health concerns anytime."
+	},
+	{
+		"keywords": ["family health plan coverage"],
+		"answer": "The Private Sector Health Plan is designed for employees of private companies, focusing on workplace wellness programs, mental health support, chronic disease management, and access to both remote and urban healthcare."
+	},
+	{
+		"keywords": [
+			"organization health plan eligibility",
+			"employee health coverage",
+			"organization health plan dependent coverage"
+		],
+		"answer": "Main members and dependents are eligible from birth (for term babies of 38 weeks) up to 64 years of age."
+	},
+	{
+		"keywords": [
+			"corporate health benefits",
+			"private sector employees",
+			"private organization health plan"
+		],
+		"answer": "Key features include tailored coverage for private sector employees and their families, access to a wide network of healthcare providers, and regular health monitoring with preventive care."
+	},
+	{
+		"keywords": ["chronic disease management"],
+		"answer": "Chronic disease management is not included in the Basic Plan but is covered for common conditions in the Standard Plan and comprehensively in the Comprehensive and Family Plans."
+	},
+	{
+		"keywords": ["maternity care", "newborn care"],
+		"answer": "Maternity and newborn care is not covered in the Basic Plan but is partially covered in the Standard Plan. Full coverage is provided in the Comprehensive and Family Plans."
+	},
+	{
+		"keywords": ["mental health services"],
+		"answer": "Mental health services are not included in the Basic Plan, but basic counseling is provided in the Standard Plan. Comprehensive therapy and psychiatric care are available in the Comprehensive and Family Plans."
+	}
+]

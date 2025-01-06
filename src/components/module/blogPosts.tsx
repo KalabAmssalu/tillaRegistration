@@ -32,6 +32,9 @@ import {
 import { BlogPostProps } from "@/components/shared/BlogPost/BlogPost";
 import { IMAGES } from "@/constants/files";
 
+import SimpleInterestForm from "./landing/provider/SimpleInterestForm";
+import TrainingRegistrationForm from "./landing/provider/TrainingRegistrationForm";
+
 export const blogPosts: Record<string, BlogPostProps> = {
 	"member-portal": {
 		title: "Take Control of Your Health with the Tilla Health Member Portal",
@@ -943,12 +946,13 @@ export const blogPosts: Record<string, BlogPostProps> = {
 			content:
 				"By registering, you unlock exclusive tools and resources to grow your practice and improve patient care.",
 		},
-		callToAction: {
-			title: "Register Now to Become a Tilla Health Provider!",
-			content: "Join us in transforming healthcare delivery in Ethiopia.",
-			buttonText: "Register",
-			buttonLink: "",
-		},
+		// callToAction: {
+		// 	title: "Register Now to Become a Tilla Health Provider!",
+		// 	content: "Join us in transforming healthcare delivery in Ethiopia.",
+		// 	buttonText: "Register",
+		// 	buttonLink: "",
+		// },
+		additionalComponent: <TrainingRegistrationForm />,
 	},
 	"provider-training": {
 		title: "Education for Individual Providers and Healthcare Facilities",
@@ -998,13 +1002,14 @@ export const blogPosts: Record<string, BlogPostProps> = {
 			content:
 				"By joining our programs, you'll access exclusive tools and educational opportunities to improve your practice and patient care.",
 		},
-		callToAction: {
-			title: "Ready to Transform Your Practice?",
-			content:
-				"Fill out our simple registration form today to participate in Tilla Health's training programs.",
-			buttonText: "Register Now",
-			buttonLink: "",
-		},
+		// callToAction: {
+		// 	title: "Ready to Transform Your Practice?",
+		// 	content:
+		// 		"Fill out our simple registration form today to participate in Tilla Health's training programs.",
+		// 	buttonText: "Register Now",
+		// 	buttonLink: "",
+		// },
+		additionalComponent: <SimpleInterestForm />,
 	},
 	"broker-portal": {
 		title: "Features of the Broker Portal",
