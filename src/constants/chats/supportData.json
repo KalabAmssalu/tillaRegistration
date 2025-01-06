@@ -63,7 +63,7 @@
 			"list of plans"
 		],
 		"answer": "Here is the plan pricing list click this link to download.",
-		"link": "https://member.tillahealth.com/docs/Plans.pdf"
+		"link": "https://tilla-registration.vercel.app/docs/Plans.pdf"
 	},
 	{
 		"keywords": ["basic plan", "basic coverage"],
