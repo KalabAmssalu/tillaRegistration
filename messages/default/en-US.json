@@ -1,4 +1,10 @@
 {
+	"Error": {
+		"title": "404",
+		"description": "The page you are looking for does not exist.",
+		"GoBack": "Go back to",
+		"dashboard": "dashboard"
+	},
 	"metadata": {
 		"description": "Build More Efficient, Engaging, and Profitable Online Stores: Relivator Enhances your eCommerce with the Power of shadcn/ui, Next.js 15, React 19, and more",
 		"title": {

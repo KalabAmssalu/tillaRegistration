@@ -116,7 +116,7 @@ export default function PlanSelection({ userType }: { userType: string }) {
 						plan_cycle: billingCycle === "yearly" ? "annual" : "monthly",
 						member_plan: selectedPlan.title.toLowerCase().split(" ")[0],
 						// members_count: memberCount,
-						amount: totalPrice * 100,
+						amount: Math.round(totalPrice * 100 * 100) / 100,
 						deductible_type: deductable,
 						// cancel_url: `${process.env.NEXT_STRIP_CANCEL_URL}/${userType}`,
 					},
@@ -140,7 +140,7 @@ export default function PlanSelection({ userType }: { userType: string }) {
 					plan_cycle: billingCycle === "yearly" ? "annual" : "monthly",
 					member_plan: selectedPlan.title.toLowerCase().split(" ")[0],
 					// members_count: memberCount,
-					amount: totalPrice,
+					amount: Math.round(totalPrice * 100) / 100,
 					deductible_type: deductable,
 					first_name: memberData.is_representative
 						? memberData.first_name

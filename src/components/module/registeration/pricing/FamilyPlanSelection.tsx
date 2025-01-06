@@ -121,7 +121,7 @@ export default function FamilyPlanSelection({
 					member_id: idToSend,
 					plan_cycle: billingCycle === "yearly" ? "annual" : "monthly",
 					member_plan: selectedPlan.title.toLowerCase().split(" ")[0],
-					amount: totalPrice * 100,
+					amount: Math.round(totalPrice * 100 * 100) / 100,
 					deductible_type: deductable,
 					cancel_url: `${process.env.NEXT_STRIP_CANCEL_URL}/${userType}`,
 				});
@@ -134,7 +134,7 @@ export default function FamilyPlanSelection({
 					plan_cycle: billingCycle === "yearly" ? "annual" : "monthly",
 					member_plan: selectedPlan.title.toLowerCase().split(" ")[0],
 					// members_count: familyMembers,
-					amount: totalPrice,
+					amount: Math.round(totalPrice * 100) / 100,
 					deductible_type: deductable,
 					first_name: familyData[0].first_name,
 					last_name: familyData[0].last_name,
