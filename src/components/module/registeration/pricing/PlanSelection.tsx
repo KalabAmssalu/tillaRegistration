@@ -26,6 +26,7 @@ import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { pricingTiers } from "@/constants/data/PricingPlanData";
 import { useAppSelector } from "@/hooks/storehooks";
 import { cn } from "@/lib/utils";
+import { formatCurrency } from "@/lib/utils/currencyUtils";
 import { type PricingTier } from "@/types/pricing/PricingType";
 
 import { CheckoutDialog } from "./CheckoutDialog";
@@ -70,8 +71,30 @@ export default function PlanSelection({ userType }: { userType: string }) {
 	// 	] || 0;
 
 	const memberCount = 1;
+	// const [planPrice, setPlanPrice] = useState<number>(0);
+	// const [totalPrice, setTotalPrice] = useState<number>(0);
+
+	// useEffect(() => {
+	// 	const convertPrice = async () => {
+	// 		const basePrice = getPlanPrice(selectedPlan);
+	// 		if (currency === "ETB") {
+	// 			const exchangeRate = await getCurrencyExchangeRate("ETB"); // Assuming getCurrencyExchangeRate is defined elsewhere
+	// 			setPlanPrice(basePrice * exchangeRate);
+	// 			setTotalPrice(basePrice * exchangeRate * memberCount);
+	// 		} else {
+	// 			setPlanPrice(basePrice);
+	// 			setTotalPrice(basePrice * memberCount);
+	// 		}
+	// 	};
+
+	// 	convertPrice();
+	// }, [selectedPlan, currency, memberCount]);
 	const [planPrice, setPlanPrice] = useState<number>(0);
 	const [totalPrice, setTotalPrice] = useState<number>(0);
+	const [discount, setDiscount] = useState<number>(0);
+	const [discountAmount, setDiscountAmount] = useState<string>("");
+	const [numberOfFamilyMembers, setNumberOfFamilyMembers] =
+		useState<string>("");
 
 	const getPlanPrice = (plan: PricingTier | null) => {
 		if (!plan) return 0;
@@ -81,14 +104,34 @@ export default function PlanSelection({ userType }: { userType: string }) {
 			] || 0
 		);
 	};
-
 	useEffect(() => {
 		const convertPrice = async () => {
 			const basePrice = getPlanPrice(selectedPlan);
 			if (currency === "ETB") {
 				const exchangeRate = await getCurrencyExchangeRate("ETB"); // Assuming getCurrencyExchangeRate is defined elsewhere
 				setPlanPrice(basePrice * exchangeRate);
-				setTotalPrice(basePrice * exchangeRate * memberCount);
+				if (memberCount >= 2 && memberCount < 4) {
+					setDiscount(15);
+					const totalPrice = basePrice * exchangeRate * memberCount;
+					const discountAmount = totalPrice * 0.15;
+					setDiscountAmount(formatCurrency(discountAmount, "ETB"));
+					setTotalPrice(totalPrice - discountAmount);
+					setNumberOfFamilyMembers("for 2 to 3");
+				} else if (memberCount >= 4) {
+					setDiscount(20);
+					const totalPrice = basePrice * exchangeRate * memberCount;
+					const discountAmount = totalPrice * 0.2;
+					setDiscountAmount(formatCurrency(discountAmount, "ETB"));
+					setTotalPrice(totalPrice - discountAmount);
+					setNumberOfFamilyMembers("for morethan 4");
+				} else {
+					setDiscount(0);
+					const totalPrice = basePrice * exchangeRate * memberCount;
+					setDiscountAmount("0");
+					setTotalPrice(totalPrice);
+					setNumberOfFamilyMembers("0");
+				}
+				// setTotalPrice(basePrice * exchangeRate * familyMembers);
 			} else {
 				setPlanPrice(basePrice);
 				setTotalPrice(basePrice * memberCount);
@@ -106,29 +149,19 @@ export default function PlanSelection({ userType }: { userType: string }) {
 		console.log("paymentMethod", paymentMethod);
 		if (paymentMethod === "stripe") {
 			if (selectedPlan) {
-				checkoutStripMutation(
-					{
-						email: memberData.is_representative
-							? memberData.representative_email_address
-							: memberData.email_address,
-						member_id: [memberData.id],
-						// member_id: JSON.stringify([memberData.id]),
-						plan_cycle: billingCycle === "yearly" ? "annual" : "monthly",
-						member_plan: selectedPlan.title.toLowerCase().split(" ")[0],
-						// members_count: memberCount,
-						amount: Math.round(totalPrice * 100 * 100) / 100,
-						deductible_type: deductable,
-						// cancel_url: `${process.env.NEXT_STRIP_CANCEL_URL}/${userType}`,
-					},
-					{
-						onSuccess: () => {
-							// const type = userType.toLowerCase();
-							// router.push(
-							// 	`/success?type=${type}&title=Registration Successful&message=Congratulations! You're now part of our platform.&redirectPath=/home&buttonText=Go to Dashboard` as `/${string}`
-							// );
-						},
-					}
-				);
+				checkoutStripMutation({
+					email: memberData.is_representative
+						? memberData.representative_email_address
+						: memberData.email_address,
+					member_id: [memberData.id],
+					// member_id: JSON.stringify([memberData.id]),
+					plan_cycle: billingCycle === "yearly" ? "annual" : "monthly",
+					member_plan: selectedPlan.title.toLowerCase().split(" ")[0],
+					// members_count: memberCount,
+					amount: Math.round(totalPrice * 100 * 100) / 100,
+					deductible_type: deductable,
+					// cancel_url: `${process.env.NEXT_STRIP_CANCEL_URL}/${userType}`,
+				});
 			}
 		} else {
 			if (selectedPlan) {
@@ -136,7 +169,7 @@ export default function PlanSelection({ userType }: { userType: string }) {
 					email: memberData.is_representative
 						? memberData.representative_email_address
 						: memberData.email_address,
-					member_id: [memberData.id].toString(),
+					member_id: [memberData.id],
 					plan_cycle: billingCycle === "yearly" ? "annual" : "monthly",
 					member_plan: selectedPlan.title.toLowerCase().split(" ")[0],
 					// members_count: memberCount,

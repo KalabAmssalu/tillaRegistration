@@ -2,7 +2,14 @@
 
 import { useEffect, useState } from "react";
 
-import { Calendar, CheckCircle, CreditCard, Users, Wallet } from "lucide-react";
+import {
+	Calendar,
+	CheckCircle,
+	CreditCard,
+	TicketPercent,
+	Users,
+	Wallet,
+} from "lucide-react";
 
 import { getCurrencyExchangeRate } from "@/actions/pricing/currency";
 import { Button } from "@/components/ui/button";
@@ -33,6 +40,8 @@ interface CheckoutDialogProps {
 	deductable?: "with_deductible" | "non_deductible";
 	name: string;
 	onSubmit: (paymentMethod: "stripe" | "chapa") => void;
+	discount?: string;
+	discountText?: string;
 }
 
 export function CheckoutDialog({
@@ -47,6 +56,8 @@ export function CheckoutDialog({
 	name,
 	currency,
 	onSubmit,
+	discount,
+	discountText,
 }: CheckoutDialogProps) {
 	const [termsAgreed, setTermsAgreed] = useState(false);
 	const [policyAgreed, setPolicyAgreed] = useState(false);
@@ -96,6 +107,17 @@ export function CheckoutDialog({
 											)}
 										</span>
 									</div>
+									{discount && discount !== "0" && (
+										<div className="flex items-center justify-between">
+											<div className="flex items-center space-x-2">
+												<TicketPercent className="h-5 w-5 text-gray-500" />
+												<span className="text-sm font-medium">
+													{discountText}
+												</span>
+											</div>
+											<span className="font-semibold">{discount}</span>
+										</div>
+									)}
 									<div className="flex items-center justify-between">
 										<div className="flex items-center space-x-2">
 											<Calendar className="h-5 w-5 text-gray-500" />

@@ -74,6 +74,10 @@ export default function FamilyPlanSelection({
 	// const totalPrice = planPrice * familyMembers;
 	const [planPrice, setPlanPrice] = useState<number>(0);
 	const [totalPrice, setTotalPrice] = useState<number>(0);
+	const [discount, setDiscount] = useState<number>(0);
+	const [discountAmount, setDiscountAmount] = useState<string>("");
+	const [numberOfFamilyMembers, setNumberOfFamilyMembers] =
+		useState<string>("");
 
 	const getPlanPrice = (plan: PricingTier | null) => {
 		if (!plan) return 0;
@@ -90,7 +94,28 @@ export default function FamilyPlanSelection({
 			if (currency === "ETB") {
 				const exchangeRate = await getCurrencyExchangeRate("ETB"); // Assuming getCurrencyExchangeRate is defined elsewhere
 				setPlanPrice(basePrice * exchangeRate);
-				setTotalPrice(basePrice * exchangeRate * familyMembers);
+				if (familyMembers >= 2 && familyMembers < 4) {
+					setDiscount(15);
+					const totalPrice = basePrice * exchangeRate * familyMembers;
+					const discountAmount = totalPrice * 0.15;
+					setDiscountAmount(formatCurrency(discountAmount, "ETB"));
+					setTotalPrice(totalPrice - discountAmount);
+					setNumberOfFamilyMembers("for 2 to 3");
+				} else if (familyMembers >= 4) {
+					setDiscount(20);
+					const totalPrice = basePrice * exchangeRate * familyMembers;
+					const discountAmount = totalPrice * 0.2;
+					setDiscountAmount(formatCurrency(discountAmount, "ETB"));
+					setTotalPrice(totalPrice - discountAmount);
+					setNumberOfFamilyMembers("for morethan 4");
+				} else {
+					setDiscount(0);
+					const totalPrice = basePrice * exchangeRate * familyMembers;
+					setDiscountAmount("0");
+					setTotalPrice(totalPrice);
+					setNumberOfFamilyMembers("0");
+				}
+				// setTotalPrice(basePrice * exchangeRate * familyMembers);
 			} else {
 				setPlanPrice(basePrice);
 				setTotalPrice(basePrice * familyMembers);
@@ -144,13 +169,12 @@ export default function FamilyPlanSelection({
 		}
 		setIsDialogOpen(false);
 	};
-	const [convertedAmount, setConvertedAmount] = useState<string>("");
-	const convertCurrency = async ({ amountInUSD }: { amountInUSD: number }) => {
-		// const convertedAmount = await CurrencyUtils(amountInUSD, "ETB");
-		const exchangeValue = await getCurrencyExchangeRate("ETB");
-		setConvertedAmount(formatCurrency(exchangeValue * amountInUSD, "ETB"));
-	};
-	console.log(`Converted Amount: ${convertedAmount}`);
+	// const [convertedAmount, setConvertedAmount] = useState<string>("");
+	// const convertCurrency = async ({ amountInUSD }: { amountInUSD: number }) => {
+	// 	// const convertedAmount = await CurrencyUtils(amountInUSD, "ETB");
+	// 	const exchangeValue = await getCurrencyExchangeRate("ETB");
+	// 	setConvertedAmount(formatCurrency(exchangeValue * amountInUSD, "ETB"));
+	// };
 
 	return (
 		<>
@@ -349,6 +373,12 @@ export default function FamilyPlanSelection({
 				familyMembers={familyMembers}
 				billingCycle={billingCycle}
 				deductable={deductable}
+				discount={discount === 0 ? "" : discountAmount}
+				discountText={
+					discount === 0
+						? ""
+						: `${discount}% Discount ${numberOfFamilyMembers} family members`
+				}
 				name={fullName}
 				currency={currency}
 				onSubmit={handleSubmit}

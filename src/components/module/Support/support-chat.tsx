@@ -1,12 +1,10 @@
 "use client";
 
-import { useState } from "react";
+import { useEffect, useState } from "react";
 
-import { MessageCircle, RefreshCcw, Send } from "lucide-react";
+import { ArrowLeft, ChevronRight, MessageCircle } from "lucide-react";
 
-import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import { Button } from "@/components/ui/button";
-import { Input } from "@/components/ui/input";
 import {
 	Popover,
 	PopoverContent,
@@ -14,59 +12,125 @@ import {
 } from "@/components/ui/popover";
 import { ScrollArea } from "@/components/ui/scroll-area";
 
-export default function SupportChat() {
-	const [messages, setMessages] = useState<
-		{ text: string; isUser: boolean; link?: string }[]
-	>([]);
-	const [input, setInput] = useState("");
+interface SubKeyword {
+	title: string;
+	answer: string;
+	link?: string | null;
+	subKeywords?: SubKeyword[];
+}
 
-	const addMessage = (text: string, isUser: boolean, link?: string) => {
-		setMessages((prevMessages) => [...prevMessages, { text, isUser, link }]);
+export default function SupportChat() {
+	const [isOpen, setIsOpen] = useState(false);
+	const [keywords, setKeywords] = useState<string[]>([]);
+	const [path, setPath] = useState<string[]>([]);
+	const [currentItems, setCurrentItems] = useState<string[]>([]);
+	const [selectedSubKeyword, setSelectedSubKeyword] =
+		useState<SubKeyword | null>(null);
+	const [isLoading, setIsLoading] = useState(false);
+
+	useEffect(() => {
+		if (isOpen) {
+			fetchKeywords();
+		}
+	}, [isOpen]);
+
+	useEffect(() => {
+		if (path.length > 0) {
+			fetchSubKeywords();
+		}
+	}, [path]);
+
+	const fetchKeywords = async () => {
+		setIsLoading(true);
+		try {
+			const response = await fetch("/api/support", {
+				method: "POST",
+				headers: { "Content-Type": "application/json" },
+				body: JSON.stringify({ action: "getKeywords" }),
+			});
+			if (response.ok) {
+				const data = await response.json();
+				setKeywords(data);
+				setCurrentItems(data);
+			}
+		} catch (error) {
+			console.error("Error fetching keywords:", error);
+		}
+		setIsLoading(false);
 	};
 
-	const handleSendMessage = async (e: React.FormEvent) => {
-		e.preventDefault();
+	const fetchSubKeywords = async () => {
+		setIsLoading(true);
+		try {
+			const response = await fetch("/api/support", {
+				method: "POST",
+				headers: { "Content-Type": "application/json" },
+				body: JSON.stringify({ action: "getSubKeywords", path }),
+			});
+			if (response.ok) {
+				const data = await response.json();
+				setCurrentItems(data);
+			}
+		} catch (error) {
+			console.error("Error fetching subkeywords:", error);
+		}
+		setIsLoading(false);
+	};
 
-		if (input.trim()) {
-			const userMessage = input.trim();
-			addMessage(userMessage, true);
-			setInput("");
+	const fetchAnswer = async () => {
+		setIsLoading(true);
+		try {
+			const response = await fetch("/api/support", {
+				method: "POST",
+				headers: { "Content-Type": "application/json" },
+				body: JSON.stringify({ action: "getAnswer", path }),
+			});
+			if (response.ok) {
+				const data = await response.json();
+				setSelectedSubKeyword(data);
+			}
+		} catch (error) {
+			console.error("Error fetching answer:", error);
+		}
+		setIsLoading(false);
+	};
 
-			try {
-				const res = await fetch("/api/support", {
-					method: "POST",
-					headers: { "Content-Type": "application/json" },
-					body: JSON.stringify({ message: userMessage }),
-				});
+	const handleItemClick = async (item: string) => {
+		const newPath = [...path, item];
+		setPath(newPath);
+		setSelectedSubKeyword(null);
+		await fetchAnswer();
+	};
 
-				const data = await res.json();
-
-				if (res.ok) {
-					addMessage(data.answer, false, data.link);
-				} else {
-					addMessage(
-						data.answer || "Sorry, we couldn't process your request.",
-						false
-					);
-				}
-			} catch (error) {
-				addMessage(
-					"An error occurred while processing your request. Please try again later.",
-					false
-				);
+	const handleBack = () => {
+		if (path.length > 0) {
+			const newPath = path.slice(0, -1);
+			setPath(newPath);
+			setSelectedSubKeyword(null);
+			if (newPath.length === 0) {
+				setCurrentItems(keywords);
+			} else {
+				fetchSubKeywords();
 			}
 		}
 	};
 
-	const handleCleanChat = () => {
-		setMessages([]);
+	const handleReset = () => {
+		setPath([]);
+		setSelectedSubKeyword(null);
+		setCurrentItems(keywords);
 	};
 
 	return (
 		<div className="fixed bottom-4 right-4 z-50">
-			<Popover>
+			<Popover open={isOpen} onOpenChange={setIsOpen}>
 				<PopoverTrigger asChild>
-					<Button className="rounded-full w-16 h-16 border-2 border-white shadow-lg transition-transform hover:scale-110">
+					<Button
+						className="rounded-full w-16 h-16 shadow-lg transition-transform hover:scale-110"
+						onClick={() => {
+							if (!isOpen) handleReset();
+						}}
+					>
 						<MessageCircle className="w-8 h-8" />
 					</Button>
 				</PopoverTrigger>
@@ -79,83 +143,103 @@ export default function SupportChat() {
 				>
 					<div className="flex flex-col h-[400px]">
 						{/* Header */}
-						<div className="p-3 border-b bg-secondary justify-between rounded-md flex items-center gap-2">
-							<div className="flex gap-2">
-								<Avatar className="h-8 w-8">
-									<AvatarImage src="/placeholder.svg" alt="Support Agent" />
-									<AvatarFallback>SA</AvatarFallback>
-								</Avatar>
-								<div>
-									<h4 className="text-sm font-semibold">
-										Tilla Support ChatBot{" "}
-									</h4>
-									<p className="text-xs text-muted-foreground">Online</p>
-								</div>
-							</div>
-							<div className="flex justify-end">
+						<div className="p-3 border-b flex items-center gap-2">
+							{path.length > 0 && (
 								<Button
-									variant={"outline"}
-									size={"icon"}
-									onClick={handleCleanChat}
-									className="bg-transparent hover:bg-secondary/20"
+									variant="ghost"
+									size="icon"
+									className="h-8 w-8"
+									onClick={handleBack}
 								>
-									<RefreshCcw className="h-4 w-4 text-white" />
+									<ArrowLeft className="h-4 w-4" />
 								</Button>
-							</div>
+							)}
+							<h4 className="text-sm font-semibold">
+								{selectedSubKeyword
+									? selectedSubKeyword.title
+									: path.length > 0
+										? path[path.length - 1]
+										: "How can we help you?"}
+							</h4>
 						</div>
 
-						{/* Messages */}
-						<ScrollArea className="flex-1 p-4">
-							{messages.length === 0 ? (
-								<div className="text-center text-sm text-muted-foreground py-4">
-									👋 Hi there! How can we help you today?
-								</div>
-							) : (
-								messages.map((message, index) => (
-									<div
-										key={index}
-										className={`flex mb-2 ${
-											message.isUser ? "justify-end" : "justify-start"
-										}`}
-									>
-										<div
-											className={`rounded-lg p-2 max-w-[80%] text-sm ${
-												message.isUser
-													? "bg-primary text-primary-foreground"
-													: "bg-muted"
-											}`}
-										>
-											{message.text}
-											{message.link && (
-												<Button
-													variant="outline"
-													onClick={() => window.open(message.link, "_blank")}
-													className="mt-2 w-full text-center bg-primary text-primary-foreground hover:bg-primary/80"
-												>
-													Download Link
-												</Button>
-											)}
-										</div>
-									</div>
-								))
-							)}
+						{/* Content */}
+						<ScrollArea className="flex-1">
+							<div className="p-4">
+								{isLoading ? (
+									<div className="text-center py-4">Loading...</div>
+								) : (
+									<>
+										{!selectedSubKeyword && (
+											<div className="space-y-2">
+												{currentItems.map((item) => (
+													<Button
+														key={item}
+														variant="outline"
+														className="w-full justify-between"
+														onClick={() => handleItemClick(item)}
+													>
+														{item}
+														<ChevronRight className="h-4 w-4" />
+													</Button>
+												))}
+											</div>
+										)}
+
+										{selectedSubKeyword && (
+											<div className="prose prose-sm max-w-none">
+												<p className="whitespace-pre-line">
+													{selectedSubKeyword.answer}
+												</p>
+												{selectedSubKeyword.link && (
+													<a
+														href={selectedSubKeyword.link}
+														className="text-blue-500 hover:underline block mt-2"
+														target="_blank"
+														rel="noopener noreferrer"
+													>
+														Learn more
+													</a>
+												)}
+												{selectedSubKeyword.subKeywords &&
+													selectedSubKeyword.subKeywords.length > 0 && (
+														<div className="mt-4">
+															<h5 className="font-semibold mb-2">
+																Related topics:
+															</h5>
+															{selectedSubKeyword.subKeywords.map((subItem) => (
+																<Button
+																	key={subItem.title}
+																	variant="outline"
+																	className="w-full justify-between mt-2"
+																	onClick={() => handleItemClick(subItem.title)}
+																>
+																	{subItem.title}
+																	<ChevronRight className="h-4 w-4" />
+																</Button>
+															))}
+														</div>
+													)}
+											</div>
+										)}
+									</>
+								)}
+							</div>
 						</ScrollArea>
 
-						{/* Input */}
-						<form onSubmit={handleSendMessage} className="p-3 border-t">
-							<div className="flex gap-2">
-								<Input
-									type="text"
-									placeholder="Type your message..."
-									value={input}
-									onChange={(e) => setInput(e.target.value)}
-									className="flex-1 text-sm"
-								/>
-								<Button type="submit" size="icon" className="shrink-0">
-									<Send className="h-4 w-4" />
+						{/* Footer */}
+						<div className="p-3 border-t">
+							<p className="text-xs text-muted-foreground text-center">
+								Can&apos;t find what you&apos;re looking for?{" "}
+								<Button
+									variant="link"
+									className="h-auto p-0 text-xs"
+									onClick={handleReset}
+								>
+									View all topics
 								</Button>
-							</div>
-						</form>
+							</p>
+						</div>
 					</div>
 				</PopoverContent>
 			</Popover>

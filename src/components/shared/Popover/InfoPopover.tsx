@@ -1,6 +1,6 @@
 "use client";
 
-import { BookOpenText, Info } from "lucide-react";
+import { Info } from "lucide-react";
 
 import { Button } from "@/components/ui/button";
 import {
@@ -10,6 +10,7 @@ import {
 } from "@/components/ui/popover";
 
 export default function InfoPopover() {
+	const link = "http://localhost:3000/docs/Plans.pdf";
 	return (
 		<Popover>
 			<PopoverTrigger asChild>
@@ -22,7 +23,14 @@ export default function InfoPopover() {
 				<div className="text-xs">
 					If you need any assistance, please contact us at a contact page or
 					Read this document
-					<a
+					<Button
+						variant="outline"
+						onClick={() => window.open(link, "_blank")}
+						className="mt-2 w-full text-center bg-primary text-primary-foreground hover:text-white hover:bg-primary/80"
+					>
+						Here
+					</Button>
+					{/* <a
 						href="https://www.google.com"
 						target="_blank"
 						rel="noopener noreferrer"
@@ -30,7 +38,7 @@ export default function InfoPopover() {
 					>
 						<BookOpenText size={16} className="mr-2 text-secondary" />
 						Here
-					</a>
+					</a> */}
 				</div>
 			</PopoverContent>
 		</Popover>

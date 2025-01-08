@@ -6,7 +6,7 @@ export const pricingTiers: PricingTier[] = [
 	{
 		title: "Basic Plan",
 		with_deductible: {
-			deductible_amount: 2800,
+			deductible_amount: 1100,
 			max_out_of_pocket: 10000,
 			price: { monthly: 70, yearly: yearly(70) },
 			coInsurance: 30,
@@ -27,7 +27,7 @@ export const pricingTiers: PricingTier[] = [
 		},
 		non_deductible: {
 			max_out_of_pocket: 15000,
-			price: { monthly: 105, yearly: yearly(105) },
+			price: { monthly: 100, yearly: yearly(105) },
 			coInsurance: 35,
 			features: [
 				{
@@ -48,7 +48,7 @@ export const pricingTiers: PricingTier[] = [
 	{
 		title: "Standard Plan",
 		with_deductible: {
-			deductible_amount: 2500,
+			deductible_amount: 900,
 			max_out_of_pocket: 8000,
 			price: { monthly: 90, yearly: yearly(90) },
 			coInsurance: 25,
@@ -75,7 +75,7 @@ export const pricingTiers: PricingTier[] = [
 		},
 		non_deductible: {
 			max_out_of_pocket: 10000,
-			price: { monthly: 125, yearly: yearly(125) },
+			price: { monthly: 120, yearly: yearly(125) },
 			coInsurance: 30,
 			features: [
 				{
@@ -102,7 +102,7 @@ export const pricingTiers: PricingTier[] = [
 	{
 		title: "Comprehensive Plan",
 		with_deductible: {
-			deductible_amount: 2200,
+			deductible_amount: 700,
 			max_out_of_pocket: 5500,
 			price: { monthly: 110, yearly: yearly(110) },
 			coInsurance: 20,
@@ -144,7 +144,7 @@ export const pricingTiers: PricingTier[] = [
 		},
 		non_deductible: {
 			max_out_of_pocket: 7500,
-			price: { monthly: 145, yearly: yearly(145) },
+			price: { monthly: 140, yearly: yearly(145) },
 			coInsurance: 25,
 			features: [
 				{
@@ -186,7 +186,7 @@ export const pricingTiers: PricingTier[] = [
 	{
 		title: "Family Plan",
 		with_deductible: {
-			deductible_amount: 1900,
+			deductible_amount: 500,
 			max_out_of_pocket: 4500,
 			price: { monthly: 130, yearly: yearly(130) },
 			coInsurance: 15,
@@ -272,7 +272,7 @@ export const pricingTiers: PricingTier[] = [
 		},
 		non_deductible: {
 			max_out_of_pocket: 5500,
-			price: { monthly: 165, yearly: yearly(165) },
+			price: { monthly: 160, yearly: yearly(165) },
 			coInsurance: 20,
 			features: [
 				{
