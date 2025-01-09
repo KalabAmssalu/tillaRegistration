@@ -303,7 +303,188 @@
 		"title": "Family Member Information",
 		"description": "Please provide the family member details below.",
 		"successMessage": "Family member information has been successfully submitted.",
-		"representative_info": "Primary MemberInformation",
+		"representative_info": "Primary Member Information",
+		"relationship": "Relationship",
+		"contact_information": "Contact Information",
+		"representative_address": "Primary Member Address Information",
+		"personal_information": "Family Member Information",
+		"AddressInfo": "Address Information",
+		"physical_attributes": "Physical Attributes",
+		"AddAFamilyMember": "Add A Family Member",
+		"AddAnotherMember": "Add Another Member",
+		"AddThisMember": "Add This Member",
+		"fieldRequired": "This field is required",
+		"use_representative_address": "Use Family Representative Address",
+		"fields": {
+			"first_name": {
+				"label": "First Name",
+				"placeholder": "Enter your first name",
+				"description": "Your legal first name.",
+				"error": "First name must be at least 2 characters long."
+			},
+			"middle_name": {
+				"label": "Middle Name",
+				"placeholder": "Enter your middle name",
+				"description": "Your legal middle name.",
+				"error": "Middle name must be at least 2 characters long."
+			},
+			"last_name": {
+				"label": "Last Name",
+				"placeholder": "Enter your last name",
+				"description": "Your legal last name.",
+				"error": "Last name must be at least 2 characters long."
+			},
+
+			"gender": {
+				"label": "Gender",
+				"placeholder": "Select your gender",
+				"description": "Please choose your gender.",
+				"error": "please select your gender. It is required",
+				"options": {
+					"male": "Male",
+					"female": "Female",
+					"not_prefer_to_say": "Not Prefer To Say"
+				}
+			},
+			"date_of_birth": {
+				"label": "Date of Birth",
+				"placeholder": "Select your date of birth",
+				"description": "Enter your birth date in the format MM-DD-YYYY.",
+				"error": "Please enter your date of birth in the format MM-DD-YYYY."
+			},
+			"marital_status": {
+				"label": "Marital Status",
+				"placeholder": "Select your marital status",
+				"description": "Please choose your marital status.",
+				"error": "Marital status is required.",
+				"options": {
+					"single": "Single",
+					"married": "Married",
+					"widowed": "Widowed",
+					"divorced": "Divorced"
+				}
+			},
+			"relationship_to_member": {
+				"label": "Relationship to Member",
+				"placeholder": "Enter your relationship to member",
+				"description": "Please enter your relationship to member.",
+				"error": "Relationship to member must be at least 2 characters long."
+			},
+			"relationship_to_member_other": {
+				"label": "Relationship to Member",
+				"placeholder": "Enter your relationship to member",
+				"description": "Please enter your relationship to member.",
+				"error": "Relationship to member must be at least 2 characters long."
+			},
+
+			"representative_first_name": {
+				"label": "First Name",
+				"placeholder": "Enter first name",
+				"description": "representative's first name.",
+				"error": "first name must be at least 2 characters long."
+			},
+			"representative_middle_name": {
+				"label": "Middle Name",
+				"placeholder": "Enter  middle name",
+				"description": "'s middle name.",
+				"error": " middle name must be at least 2 characters long."
+			},
+			"representative_last_name": {
+				"label": " Last Name",
+				"placeholder": "Enter  last name",
+				"description": "'s last name.",
+				"error": " last name must be at least 2 characters long."
+			},
+			"representative_gender": {
+				"label": " Gender",
+				"placeholder": "Select  gender",
+				"description": "Please choose 's gender.",
+				"error": " gender is required.",
+				"options": {
+					"male": "Male",
+					"female": "Female",
+					"not_prefer_to_say": "Not Prefer To Say"
+				}
+			},
+			"representative_date_of_birth": {
+				"label": " Date of Birth",
+				"placeholder": "Select your date of birth",
+				"description": "Enter your birth date in the format MM-DD-YYYY.",
+				"error": "Please enter your date of birth in the format MM-DD-YYYY."
+			},
+			"representative_marital_status": {
+				"label": " Marital Status",
+				"placeholder": "Select  marital status",
+				"description": "Please choose 's marital status.",
+				"error": " marital status is required.",
+				"options": {
+					"single": "Single",
+					"married": "Married",
+					"widowed": "Widowed",
+					"divorced": "Divorced"
+				}
+			},
+			"representative_mailing_address_line1": {
+				"label": "Stret Address Line 2",
+				"placeholder": "Mailing Address Line 1",
+				"description": "Choose a city from the list.",
+				"error": "City name must be at least 2 characters long."
+			},
+			"representative_country": {
+				"label": " Country",
+				"placeholder": " Country",
+				"description": "Choose a country from the list.",
+				"error": "City name must be at least 2 characters long."
+			},
+			"representative_city": {
+				"label": " City",
+				"placeholder": " City",
+				"description": "Choose a city from the list.",
+				"error": "City name must be at least 2 characters long."
+			},
+			"representative_region": {
+				"label": " Region / State",
+				"placeholder": " Region / State",
+				"description": "Choose a city from the list.",
+				"error": "City name must be at least 2 characters long."
+			},
+			"representative_street_address": {
+				"label": " Street Address Line 1",
+				"placeholder": "Street Address Line 1",
+				"description": "Choose a city from the list.",
+				"error": "City name must be at least 2 characters long."
+			},
+			"representative_kifle_ketema": {
+				"label": "Sub-city / Kifle Ketema",
+				"placeholder": "Mailing Address Line 1",
+				"description": "Choose a city from the list.",
+				"error": "City name must be at least 2 characters long."
+			},
+			"representative_phone_number": {
+				"label": "Phone Number",
+				"placeholder": "Enter phone number",
+				"description": "'s phone number.",
+				"error": "A valid phone number is required between 10 and 15 digits."
+			},
+			"representative_email_address": {
+				"label": " Email Address",
+				"placeholder": "Enter  email address",
+				"description": "'s email address.",
+				"error": "A valid email address is required."
+			},
+			"representative_zip_code": {
+				"label": " ZIP Code / Woreda",
+				"placeholder": "Enter  ZIP code or Woreda name",
+				"description": "ZIP code or Woreda name for 's address.",
+				"error": "ZIP code or Woreda name must be valid."
+			}
+		}
+	},
+	"DiasporaInfoForm": {
+		"title": "Diaspora Member Information",
+		"description": "Please provide the family member details below.",
+		"successMessage": "Family member information has been successfully submitted.",
+		"representative_info": "Diaspora Primary Member Information",
 		"relationship": "Relationship",
 		"contact_information": "Contact Information",
 		"representative_address": "Primary Member Address Information",
